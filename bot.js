@@ -1,6 +1,7 @@
 //Insances et variables
 var fetch = require("node-fetch");
-var Twit = require('twit'); 
+var Twit = require('twit');
+var Cron = require('node-cron'); 
 var config = require('./config'); 
 var T = Twit(config);
 
@@ -34,11 +35,14 @@ async function tweetISSLocation() {
     const longitude = await getISSLocation().then(data => {return data.json()}).then(data => {return data.iss_position.longitude});
     const latitude = await getISSLocation().then(data => {return data.json()}).then(data => {return data.iss_position.latitude});
     console.log('[*] ISS Longitude: ' + longitude + ' & ISS Latitude: '+  latitude);
-    const tweet = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear() + ":\n 🚀Latitude de l'ISS: " + latitude + "\n 🚀Longitude de l'ISS: " + longitude
+    const tweet = "🚀" + date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear() + " à 12h00:\n📌Latitude de l'ISS: " + latitude + "\n📌Longitude de l'ISS: " + longitude
     tweetIt(tweet);
 
 }
 
 //Script Bot
 console.log('[*] Twitter Bot initialization.');
-tweetISSLocation();
+Cron.schedule('1 00 12 * * *', () => {
+  tweetISSLocation();
+})
+
