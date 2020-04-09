@@ -26,9 +26,9 @@ function getISSLong() {
 }
 
 //Fonction de Tweet
-function tweetIt(text) {   
+function tweetIt(text, text) {   
     var tweet = {
-        status: text
+        status: text + text
     }
 
     T.post('statuses/update', tweet, tweeted);
@@ -47,11 +47,11 @@ async function tweetISSLocation() {
     console.log('[*] Async function is running...')
     latitude = await getISSLat();
     longitude = await getISSLong();
-    tweetIt(latitude + ' & ' + longitude);
+    return latitude + ' & ' + longitude
 
 }
 
 //Script Bot
 console.log('[*] Twitter Bot initialization.');
-tweetISSLocation();
+tweetISSLocation().then(data => tweetIt(data))
 
