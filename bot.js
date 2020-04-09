@@ -11,9 +11,9 @@ async function getISSLocation() {
 }
 
 //Fonction de Tweet
-function tweetIt(text, text) {   
+function tweetIt(text) {   
     var tweet = {
-        status: text + text
+        status: text 
     }
 
     T.post('statuses/update', tweet, tweeted);
@@ -29,11 +29,12 @@ function tweetIt(text, text) {
 
 //Fonction tweet ISS Location
 async function tweetISSLocation() {
+    let date = new Date();
     console.log('[*] Async function is running...')
     const longitude = await getISSLocation().then(data => {return data.json()}).then(data => {return data.iss_position.longitude});
     const latitude = await getISSLocation().then(data => {return data.json()}).then(data => {return data.iss_position.latitude});
-    const tweet = '[*] ISS Longitude: ' + longitude + ' & ISS Latitude: '+  latitude
-    console.log(tweet);
+    console.log('[*] ISS Longitude: ' + longitude + ' & ISS Latitude: '+  latitude);
+    const tweet = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear() + ":\n 🚀Latitude de l'ISS: " + latitude + "\n 🚀Longitude de l'ISS: " + longitude
     tweetIt(tweet);
 
 }
