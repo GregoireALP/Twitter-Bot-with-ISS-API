@@ -5,23 +5,23 @@ var config = require('./config');
 var T = Twit(config);
 
 //Fonction request API
-function getISSLat() {
-    fetch('http://api.open-notify.org/iss-now.json')
+async function getISSLat() {
+    await fetch('http://api.open-notify.org/iss-now.json')
       .then((data) => {
         return data.json();
       }).then(data => {
         console.log('[*] ISS Latitude: ' + data.iss_position.latitude);
-        return data.iss_position.latitude;
+        return Promise.resolve(data.iss_position.latitude);
       })
 }
 
-function getISSLong() {
-    fetch('http://api.open-notify.org/iss-now.json')
+async function getISSLong() {
+    await fetch('http://api.open-notify.org/iss-now.json')
       .then((data) => {
         return data.json();
       }).then(data => {
         console.log('[*] ISS Longitude: ' + data.iss_position.longitude);
-        return data.iss_position.longitude;
+        return Promise.resolve(data.iss_position.longitude);
       })
 }
 
@@ -53,5 +53,5 @@ async function tweetISSLocation() {
 
 //Script Bot
 console.log('[*] Twitter Bot initialization.');
-tweetISSLocation().then(data => tweetIt(data))
+tweetISSLocation().then(data => console.log(data));
 
