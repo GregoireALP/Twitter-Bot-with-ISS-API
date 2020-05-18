@@ -35,14 +35,12 @@ async function tweetISSLocation() {
     const longitude = await getISSLocation().then(data => {return data.json()}).then(data => {return data.iss_position.longitude});
     const latitude = await getISSLocation().then(data => {return data.json()}).then(data => {return data.iss_position.latitude});
     console.log('[*] ISS Longitude: ' + longitude + ' & ISS Latitude: '+  latitude);
-    const tweet = "🚀" + date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear() + " à 12h00:\n📌Latitude de l'ISS: " + latitude + "\n📌Longitude de l'ISS: " + longitude
+    const tweet = "🚀" + date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear() + " à "  + date.getHours() + ":" + date.getMinutes() + "\n📌Latitude de l'ISS: " + latitude + "\n📌Longitude de l'ISS: " + longitude
     tweetIt(tweet);
 
 }
 
 //Script Bot
 console.log('[*] Twitter Bot initialization.');
-Cron.schedule('1 00 12 * * *', () => {
-  tweetISSLocation();
-})
+tweetISSLocation();
 
