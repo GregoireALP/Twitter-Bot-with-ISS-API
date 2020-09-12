@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "node-cron": "^2.0.3",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "node-state": "^1.4.4",
     "twit": "^2.2.11"
   }
